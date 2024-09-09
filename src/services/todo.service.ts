@@ -27,19 +27,19 @@ export class TodoService {
         return todo;
     }
 
-    public async update(id: number, title: string, description: string) {
-        const todo = await this.repository.findById(id);
-
-        if (!todo) throw Error("Tarefa não encontrada");
-
-        const updatedTodo = await this.repository.update(
-            id,
-            title,
-            description
-        );
+    public async edit(id: number, title: string, description: string) {
+        const updatedTodo = await this.repository.edit(id, title, description);
 
         if (!updatedTodo) throw Error("Erro ao editar tarefa");
 
         return updatedTodo;
+    }
+
+    public async toggleComplete(id: number, isCompleted: boolean) {
+        const todo = await this.repository.toggleComplete(id, isCompleted);
+
+        if (!todo) throw Error("Erro ao trocar conclusão");
+
+        return todo;
     }
 }

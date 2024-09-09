@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../util/jwt";
 
+export interface AuthenticadedRequest extends Request {
+    userId?: number;
+}
+
 export function authMiddleware(
-    request: Request,
+    request: AuthenticadedRequest,
     response: Response,
     next: NextFunction
 ) {
@@ -11,7 +15,8 @@ export function authMiddleware(
     if (!token) return response.status(401).json({ message: "Não autorizado" });
 
     try {
-        verifyToken(token);
+        const decodedToken = verifyToken(token);
+        request.userId = decodedToken.id;
         next();
     } catch (error) {
         response.status(401).json({ message: "Token inválido" });

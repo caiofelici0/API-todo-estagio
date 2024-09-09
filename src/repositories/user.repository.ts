@@ -16,18 +16,18 @@ export class UserRepository {
             },
         });
 
-        return User.build(user.email, user.password);
+        return User.build(user.id, user.email, user.password);
     }
 
     public async findByUserEmail(email: string): Promise<User | null> {
-        const aUser = await this.prisma.user.findUnique({
+        const user = await this.prisma.user.findUnique({
             where: {
                 email,
             },
         });
 
-        if (!aUser) return null;
+        if (!user) return null;
 
-        return User.build(email, aUser.password);
+        return User.build(user.id, user.email, user.password);
     }
 }

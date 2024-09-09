@@ -28,7 +28,7 @@ export class UserService {
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) throw Error("Senha incorreta");
 
-        const token = generateToken(user.email);
+        const token = generateToken(user.id);
 
         return token;
     }

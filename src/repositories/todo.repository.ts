@@ -38,19 +38,38 @@ export class TodoRepository {
 
         if (!deletedTodo) return null;
 
-        return Todo.build(
+        return Todo.with(
             deletedTodo.id,
             deletedTodo.title,
-            deletedTodo.description
+            deletedTodo.description,
+            deletedTodo.isCompleted
         );
     }
 
-    public async update(id: number, title: string, description: string) {
+    public async edit(id: number, title: string, description: string) {
         const updatedTodo = await this.prisma.todo.update({
             where: { id },
             data: {
                 title,
                 description,
+            },
+        });
+
+        if (!updatedTodo) return null;
+
+        return Todo.with(
+            updatedTodo.id,
+            updatedTodo.title,
+            updatedTodo.description,
+            updatedTodo.isCompleted
+        );
+    }
+
+    public async toggleComplete(id: number, isCompleted: boolean) {
+        const updatedTodo = await this.prisma.todo.update({
+            where: { id },
+            data: {
+                isCompleted,
             },
         });
 

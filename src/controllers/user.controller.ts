@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UserService } from "../services/user.service";
 import { prisma } from "../util/prisma.util";
 import { UserRepository } from "../repositories/user.repository";
+import { AuthenticadedRequest } from "../middlewares/authMiddleware";
 
 export class UserController {
     private constructor() {}
@@ -46,7 +47,7 @@ export class UserController {
         }
     }
 
-    public async logout(request: Request, response: Response) {
+    public async logout(request: AuthenticadedRequest, response: Response) {
         response.clearCookie("token");
         return response
             .status(200)
