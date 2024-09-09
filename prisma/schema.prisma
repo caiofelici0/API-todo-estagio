@@ -21,7 +21,7 @@ model Todo {
   id          Int     @id @default(autoincrement())
   title       String
   description String
-  isCompleted Boolean
+  isCompleted Boolean @default(false)
   user        User    @relation(fields: [userId], references: [id])
   userId      Int
 }
