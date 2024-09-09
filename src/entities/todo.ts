@@ -1,4 +1,5 @@
 type TodoProps = {
+    id: number;
     title: string;
     description: string;
     isCompleted: boolean;
@@ -7,12 +8,31 @@ type TodoProps = {
 export class Todo {
     private constructor(readonly props: TodoProps) {}
 
-    public static build(title: string, description: string) {
+    public static build(id: number, title: string, description: string) {
         return new Todo({
+            id,
             title,
             description,
             isCompleted: false,
         });
+    }
+
+    public static with(
+        id: number,
+        title: string,
+        description: string,
+        isCompleted: boolean
+    ) {
+        return new Todo({
+            id,
+            title,
+            description,
+            isCompleted,
+        });
+    }
+
+    public get id() {
+        return this.props.id;
     }
 
     public get title() {

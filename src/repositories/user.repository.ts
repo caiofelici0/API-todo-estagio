@@ -28,8 +28,6 @@ export class UserRepository {
 
         if (!aUser) return null;
 
-        const user = User.build(email, aUser.password);
-
-        return user;
+        return User.build(email, aUser.password);
     }
 }
