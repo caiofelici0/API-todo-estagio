@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: "https://todo-estagio.vercel.app/",
+        origin: "https://todo-estagio.vercel.app",
         credentials: true,
     })
 );
